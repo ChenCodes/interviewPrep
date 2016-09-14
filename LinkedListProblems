@@ -46,4 +46,62 @@ public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
     
     Now, we want to iterate through the linked lists while the current pointer is not pointing to null.
     
-    If p1 isn't null, then we can increment our carry 
+    If p1 isn't null, then we can increment our carry. If p2 isn't null, then we can increment our carry again. 
+    
+    Now, we want to create our next node at p3.next. We want to find the remainder since if there's anything left over we want to carry on to the next element. 
+    
+    We set p3 to be the next node (p3.next).
+    
+    We take our carry after dividing it by 10, since it's integer division, we bring it to the next place. 
+    
+    
+    
+Problem 3: Reverse a linked list:
+
+  Iterative solution:
+  
+  public Node reverseList(Node node) {
+    Node prev = null;
+    Node current = node;
+    Node next = null;
+    
+    while(current != null) {
+      next = current.next;
+      current.next = prev;
+      prev = current;
+      current = next;
+  }
+  node = prev;
+  return node;
+}
+    
+  
+  
+  
+  
+  
+  Recursive solution:
+  
+  public Node reverseList(Node head) {
+    if (head == null) {
+      return null;
+    }
+    
+    if (head.next == null) {
+      return head;
+    }
+    
+    //get the second element which holds on to the rest of the stuff in our linked list 
+    Node second = head.next;
+    
+    //do this to unlink the head from the second element 
+    head.next = null;
+    
+    //reverse everything from the second element on
+    ListNode reverseRest = Reverse(second);
+    
+    second.next = head;
+    
+    return reverseRest;
+  }
+  
