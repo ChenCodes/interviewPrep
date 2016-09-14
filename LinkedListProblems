@@ -105,3 +105,17 @@ Problem 3: Reverse a linked list:
     return reverseRest;
   }
   
+  Explanation for the code:
+    First, if we have a list that is null, then we just want to return null.
+    Then, if we have just a one element linked list, then we only want to return that list. 
+    Then, this means we have multiple elements. We will want to first get the next of the head and then assign that to a node variable. This is so that we can recursively call with fewer and fewer elements in the linked list. 
+    
+    After we get the rest, then we want to remove the link from the head to the rest. so we do: head.next = null. This is to prevent cycles from occurring. 
+    
+    Now, we can recursively call and set it to a reverseRest variable that will be returned as null in the end. 
+    
+    After that, we want to set second.next -> head. This is because when we are done with the recursion, we will be assigning the nodes to the next node. 
+    
+    Return the variable at the very end (base case). 
+  
+  
