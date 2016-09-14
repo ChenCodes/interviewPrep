@@ -1,0 +1,89 @@
+####Problem 1: Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if the characters in s can be replaced to get t.
+
+For example,"egg" and "add" are isomorphic, "foo" and "bar" are not.
+
+Plan: We can define a map between char-char mappings. If a value is already mapped, it can no longer be mapped to another one. 
+
+Solution:
+
+  public boolean isIsomorphic(String s, String t) {
+  //If any of them are null, then this won't work. 
+  if (s == null || t == null) {
+    return false;
+  }
+  
+  //If the length of one is not the same as the length of another one, should return false.
+  if (s.length() != t.length()) {
+    return false;
+  }
+  
+  //Instantiate a hashmap
+  HashMap<Character, Character> map = new HashMap<Character, Character>();
+  
+  //Iterate through the strings at the same time, then see if there's a mapping within the map
+  
+  for (int i = 0; i < s.length(); i++) {
+    char c1 = s.charAt(i);
+    char c2 = t.charAt(i);
+    
+    if (map.containsKey(c1)) { //if we have already put c1 in our map, we want to make sure it maps to c2. 
+      if (map.get(c1) != c2) { //this means that c2 is a new character, not aligned with our previous setting of c1 => c2
+        return false;
+      } 
+    } else { //this means that c1 has not yet been mapped to anything in the map 
+        if map.containsValue(c2)) { // this case is if some other value is being mapped to c2 already, so say c3 for example. 
+          return false; 
+        } //if all goes well, then that means we haven't 
+        map.put(c1, c2);
+    }
+  }
+  return true;
+  
+}
+
+Runtime is O(n). This is because depending on the length of the string, we have to run through n elements. 
+
+####Problem 2: Two Sum
+Given an array of integers, find two numbers such that they add up to a specific target number. 
+
+public int[] twoSum(int[] numbers, int target) {
+  HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+  //Store result in an array 
+  int[] result = new int[2];
+  
+  //Iterate through all of our numbers 
+  
+  for (int i = 0; i < numbers.length; i++) {
+    if (map.containsKey(numbers[i])) {
+      int index = map.get(numbers[i]);
+      result[0] = index;
+      result[1] = i;
+      break;
+    } else {
+      map.put(target - numbers[i], i);
+    }
+  }
+  return result;
+}
+
+Example: numbers = {2, 7, 11, 15}, target = 9 
+Iteration 1:
+map doesn't contain anyhting, so we need to put 
+map.put(9 - 2, 0) -> map.put(7, 0)
+
+Iteration 2:
+map does contain 7, so then we set the index to be 0 since that was what we put in earlier
+result[1] gets set to 1. So our final result will be: [0, 1] which is the right answer. 
+
+Time complexity of the solution is O(n). 
+
+
+
+
+
+
+  
+  
+  
+  
+  
