@@ -1,0 +1,162 @@
+Basic concepts of trees:
+
+
+Binary Search Tree:
+  For all nodes, left children <= current node <= right children 
+
+Balanced vs. Unbalanced: 
+  In a balanced tree, the depth of hte left and right subtrees of every node differ by 1 or less.
+  
+Full Binary Tree: 
+  Every node other than the leaves has two children 
+  
+Perfect binary tree: 
+  A full binary tree in which all leaves are at the same depth or same level, and in which every parent has two children. 
+  
+Complete Binary Tree: 
+  A binary tree in which every level, except possibly the last, is completely filled, and all nodes are as far left as possible.
+  
+
+
+
+PreOrder binary tree traversal:
+
+  public class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) {
+      val = x;
+    }
+    
+    public ArrayList<Integer> preorderTraversal(TreeNode root) {
+      ArrayList<Integer> returnList = new ArrayList<Integer>();
+      
+      if (root == null) {
+        return returnList;
+      }
+      
+      Stack<TreeNode> stack = new Stack<TreeNode>();
+      stack.push(root);
+      
+      while(!stack.empty()) {
+        TreeNode n = stack.pop();
+        returnList.add(n.val);
+        
+        if (n.right != null) {
+          stack.push(n.right);
+        }
+        
+        if (n.left != null) {
+          stack.push(n.left);
+        }
+        
+      }
+      return returnList;
+    }
+    
+    Explanation for preorder traversal:
+      First we want to create a stack and then push the root node onto it. 
+      Then, we have a while loop that will iterate as long as our stack isn't empty. 
+      
+      We pop off the topmost node, and then add the value into our arraylist of integers.
+      
+      Now, we want to push the right child on the stack first, then the left child. This ensures that we remove the left child first when going down the tree.
+      
+      
+      
+      RULES FOR PREORDER:
+      Visit node.
+      Visit left subtree in Preorder
+      Visit right subtree in Preorder 
+      
+      Recursive solution for preorder traversal:
+        public void preorder(TreeNode root) {
+          if (root != null) {
+            //Visit the node by printing out the node data
+            System.out.printf("%d", root.data);
+            preorder(root.left);
+            preorder(root.right);
+          }
+        }
+        
+        
+        
+        
+        
+  Inorder traversal:
+  
+  The idea is: visit left subtree, then root node, then right subtree. 
+  
+  http://1.bp.blogspot.com/-RspLPcv-FhA/U8VxLPtYQcI/AAAAAAAADPQ/NBygoIXmr7I/s1600/InOrderTraversalBinaryTree.jpg
+  Rules for INORDER Traversal:
+    Traverse left subtree in INORDER
+    Visit node
+    Traverse right subtree in INORDER
+  
+    Recursive solution:
+      public void inorder(TreeNode root) {
+        if (root != null) {
+          inorder(root.left);
+          System.out.printf("%d", root.data);
+          inorder(root.right);
+        }
+      }
+      
+      Explanation:
+        First, we want to keep travelling down to the bottommost left leaf node. When we get there, we want to print it out. Then, we want to go back up a call and then check out the right node.
+        
+        
+        So in the image above, first we look at 40, then 20, then 10. At 10, we realize that we have no more children, so then we just print out 10 using the print statement. We then try to call inorder on the right root node and nothing happens since 10 has no children. Now, we go back up to the call where 20 was the root node. inorder(root.left) has already been called, so now we print out 20. Now, we apply the inorder(root.right) call. We do the same thing, realize that it doesn't have any children, then print out 30. Now, we go all the way up to the 40 node. Here, we see that we've already called the root.left so we print out the current element and then call inorder(root.right).
+        
+        
+        
+        
+        
+    RULES FOR POSTORDER TRAVERSAL:
+      Traverse the left subtree in postorder
+      Traverse the right subtree in postorder
+      Visit node 
+        
+    PostOrder traversal:
+      public void postorder(TreeNode root) {
+        if (root != null) {
+          inorder(root.left);
+          inorder(root.right);
+          System.out.printf("%d", root.data);
+        }
+      }
+      
+      
+      
+    Validate binary search tree (Java)
+    
+    public boolean isValidBST(TreeNode root) {
+      return isValidBST(root, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+    }
+    
+    public boolean isValidBST(TreeNode p, double min, double max) {
+      if (p == null) {
+        return true;
+      }
+      
+      if (p.val <= min || p.val >= max) {
+        return false;
+      }
+      
+      return isValidBST(p.left, min, p.val) && isValidBST(p.right, p.val, max);
+    }
+    
+    
+    
+      
+      
+
+      
+      
+      
+      
+    
+    
+    
+    
